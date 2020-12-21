@@ -120,16 +120,16 @@ def main():
         if p == 0:
             for x in range(n_1, n_2):
                 if ws.cell(row=x, column=2).value != '序号':
-                    mess_test['名称'] = ws.cell(row=x, column=4).value.replace('中文通用名', '').replace('：','')
-                    mess_test['用法'] = ws.cell(row=x, column=5).value.replace('用法用量：', '')
+                    mess_test['名称'] = ws.cell(row=x, column=4).value.replace('中文通用名', '').replace('：','').replace('\n', '')
+                    mess_test['用法'] = ws.cell(row=x, column=5).value.replace('用法用量：', '').replace('\n', '')
                     mess_number[ws.cell(row=x, column=2).value] = mess_test
                     mess_test = {}
             mess['试验药'] = mess_number
             mess_number = {}
             for x in range(n_2, key_3-1):
                 if ws.cell(row=x, column=2).value != '序号':
-                    mess_test['名称'] = ws.cell(row=x, column=4).value.replace('中文通用名', '').replace('：', '')
-                    mess_test['用法'] = ws.cell(row=x, column=5).value.replace('用法用量：', '')
+                    mess_test['名称'] = ws.cell(row=x, column=4).value.replace('中文通用名', '').replace('：', '').replace('\n', '')
+                    mess_test['用法'] = ws.cell(row=x, column=5).value.replace('用法用量：', '').replace('\n', '')
                     mess_number[ws.cell(row=x, column=2).value] = mess_test
                     mess_test = {}
             mess['对照药'] = mess_number
@@ -186,16 +186,16 @@ def main():
 
         for x in range(n_1, n_2):
             if ws.cell(row=x, column=2).value != '序号':
-                mess_test['指标'] = ws.cell(row=x, column=3).value
-                mess_test['评价时间'] = ws.cell(row=x, column=6).value
+                mess_test['指标'] = ws.cell(row=x, column=3).value.replace(' ', '').replace('\t', '')
+                mess_test['评价时间'] = ws.cell(row=x, column=6).value.replace(' ', '').replace('\t', '')
                 mess_test['终点指标选择'] = ws.cell(row=x, column=7).value.replace('\t', '').replace(' ', '')
                 mess_number[ws.cell(row=x, column=2).value] = mess_test
         mess['主要终点指标及评价时间'] = mess_number
         mess_number, mess_test = {}, {}
         for x in range(n_2, key_4 - 1):
             if ws.cell(row=x, column=2).value != '序号':
-                mess_test['指标'] = ws.cell(row=x, column=3).value
-                mess_test['评价时间'] = ws.cell(row=x, column=6).value
+                mess_test['指标'] = ws.cell(row=x, column=3).value.replace(' ', '').replace('\t', '')
+                mess_test['评价时间'] = ws.cell(row=x, column=6).value.replace(' ', '').replace('\t', '')
                 mess_test['终点指标选择'] = ws.cell(row=x, column=7).value.replace('\t', '').replace(' ', '')
                 mess_number[ws.cell(row=x, column=2).value] = mess_test
                 mess_test = {}
