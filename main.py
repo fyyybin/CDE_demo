@@ -32,8 +32,8 @@ def main():
         documents['药物名称'] = ws['B7'].value.replace(' ','')
         documents['药物类型'] = No_fill(ws['B8'].value)
         documents['适应症'] = ws['B10'].value.replace(' ','')
-        documents['试验专业题目'] = ws['B11'].value.replace(' ','')
-        documents['试验通俗题目'] = ws['B12'].value.replace(' ','')
+        documents['试验专业题目'] = ws['B11'].value.replace(' ','').replace('，', ',').replace('、', ',').replace('<', '小于').replace('>', '大于')
+        documents['试验通俗题目'] = ws['B12'].value.replace(' ','').replace('，', ',').replace('、', ',').replace('<', '小于').replace('>', '大于')
 
         mess = {}
         for i in range(17, rows):
@@ -82,21 +82,21 @@ def main():
         state =  []
         for i in range(key_1, key_2):
             if ws.cell(row=i, column=1).value == '年龄':
-                mess_man['年龄'] = ws.cell(row=i+1, column=1).value.replace(' ', '')
+                mess_man['年龄'] = ws.cell(row=i, column=2).value.replace(' ', '')
             elif ws.cell(row=i, column=1).value == '性别':
-                mess_man['性别'] = ws.cell(row=i+1, column=2).value.replace(' ', '')
+                mess_man['性别'] = ws.cell(row=i, column=2).value.replace(' ', '')
             elif ws.cell(row=i, column=1).value == '健康受试者':
-                mess_man['健康受试者'] = ws.cell(row=i + 1, column=2).value.replace(' ', '')
+                mess_man['健康受试者'] = ws.cell(row=i, column=2).value.replace(' ', '')
             if ws.cell(row=i, column=1).value == '入选标准':
                 for j in range(i, key_2):
-                    state.append(ws.cell(row=j, column=2).value.replace(' ', ''))
+                    state.append(ws.cell(row=j, column=2).value.replace('\xa0', '').replace(' ', '').replace(';', '').replace('；', '').replace('<', '小于').replace('>', '大于').replace('＜', '小于').replace('＞', '大于').replace('^', '**').replace('{', '[').replace('}', ']') + '。')
                     if ws.cell(row=j+1, column=1).value == '排除标准':
                         mess_man['入选标准'] = state
                         state = []
                         break
             elif ws.cell(row=i, column=1).value == '排除标准':
                 for j in range(i, key_2):
-                    state.append(ws.cell(row=j, column=2).value.replace('\xa0', ''))
+                    state.append(ws.cell(row=j, column=2).value.replace('\xa0', '').replace(' ', '').replace(';', '').replace('；', '').replace('<', '小于').replace('>', '大于').replace('＜', '小于').replace('＞', '大于').replace('^', '**').replace('{', '[').replace('}', ']') + '。')
                     if ws.cell(row=j+1, column=1).value == '4、试验分组':
                         mess_man['排除标准'] = state
                         state = []
